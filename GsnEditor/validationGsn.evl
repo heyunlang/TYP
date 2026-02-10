@@ -1,0 +1,105 @@
+// NamedElement constraints
+context GSN!NamedElement {
+	constraint NameNotEmpty {
+		check :
+	        self.name <> ""
+	    message :
+			"Name cannot be empty."
+	}
+}
+	
+// Supported constraints
+context GSN!SupportedBy {
+	// Valid SupportedBy source
+	constraint SB_ValidSource {
+		check :
+			self.source.isKindOf(Goal) or self.source.isKindOf(Strategy)
+		message :
+			"Invalide SupportedBy source."
+	}
+		
+	// Valid SupportedBy target
+	constraint SB_ValidTarget {
+		check :
+			self.target.isKindOf(Goal) or self.target.isKindOf(Strategy) or self.target.isKindOf(Solution)
+		message :
+			"Invalid SupportedBy target."
+	}
+		
+	// Valid SupportedBy connection (check when the target and source are valid)
+	constraint ValidSB {
+		guard :
+			self.satisfies("SB_ValidSource") and self.satisfies("SB_ValidTarget")
+	    check :
+	        // Goal could be supported by Strategy or Solution
+	        (self.source.isKindOf(Goal) and (self.target.isKindOf(Strategy) or self.target.isKindOf(Solution)))
+	        or
+	        // Strategy only could be supported by sub-goals
+	        (self.source.isKindOf(Strategy) and self.target.isKindOf(Goal))
+	    message :
+	        "Invalid SupportedBy connection."
+	}
+}
+	
+	
+// InContextOf constraints
+context GSN!InContextOf {
+	// Valid InContextOf source
+	constraint ICO_ValidSource {
+		check :
+			self.source.isKindOf(Goal) or self.source.isKindOf(Strategy)
+		message :
+			"Invalide InContextOf source."
+	}
+		
+	// Valid InContextOf target
+	constraint ICO_ValidTarget {
+		check :
+			self.target.isKindOf(Context) or self.target.isKindOf(Assumption) or self.target.isKindOf(Justification)
+		message :
+			"Invalid InContextOf target."
+	}
+}
+	
+// Argument completeness constraints
+context GSN!Goal {
+	// Every argument path must end in solution
+	constraint ArgumentComplete {
+		guard :
+			self.developed = false
+		check :
+			self.isArgumentComplete(Sequence{})
+		message :
+			" The argument path does not end in a Solution."	
+	}
+}
+	
+operation GSN!NamedElement isArgumentComplete(visited : Sequence) : Boolean {
+	if (visited.includes(self)) {
+		return false;
+	}
+	
+	var newVisited = visited.including(self);
+
+    var sbLinks = GSN!SupportedBy.allInstances().select(sb | sb.source = self);
+
+    if (sbLinks.isEmpty()) {
+        return false; 
+    }
+
+    if (self.isKindOf(GSN!Goal)) {
+        return sbLinks.forAll(sb |
+            sb.target.isKindOf(GSN!Solution)
+            or (sb.target.isKindOf(GSN!Strategy) and sb.target.isArgumentComplete(newVisited))
+            or (sb.target.isKindOf(GSN!Goal) and sb.target.isArgumentComplete(newVisited))
+        );
+    }
+	
+    if (self.isKindOf(GSN!Strategy)) {
+        return sbLinks.forAll(sb |
+            sb.target.isKindOf(GSN!Goal) and sb.target.isArgumentComplete(newVisited)
+        );
+    }
+    return false;
+}
+

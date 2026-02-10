@@ -1,0 +1,56 @@
+// Create a top-level Module
+var m = new GSN!Module;
+m.isPublic = true;
+
+// Create a Goal
+var g1 = new GSN!Goal;
+g1.name = "System is acceptably safe";
+g1.instantiated = true;
+g1.developed = false;
+g1.isPublic = true;
+m.elements.add(g1);
+
+// Create a Strategy
+var s1 = new GSN!Strategy;
+s1.name = "Argument by decomposition";
+m.elements.add(s1);
+
+// SupportedBy from Goal to Strategy
+var rel1 = new GSN!SupportedBy;
+rel1.source = g1;    
+rel1.target = s1;
+m.relationships.add(rel1);
+
+// Create a Solution
+var sol1 = new GSN!Solution;
+sol1.name = "Test reports + analysis";
+m.elements.add(sol1);
+
+// SupportedBy from Strategy to Solution
+var rel2 = new GSN!SupportedBy;
+rel2.source = s1;
+rel2.target = sol1;
+m.relationships.add(rel2);
+
+// Create a Context
+var c1 = new GSN!Context;
+c1.name = "Operational assumptions";
+m.elements.add(c1);
+
+// InContextOf from Goal to Context
+var rel3 = new GSN!InContextOf;
+rel3.source = g1;
+rel3.target = c1;
+m.relationships.add(rel3);
+
+// Create an AwayGoal to point to Goal from another Module
+var ag = new GSN!AwayGoal;
+ag.name = "Ref to external safety goal";
+ag.goal = g1;     
+m.elements.add(ag);
+
+// Create an AwayContext to point to c1
+var ac = new GSN!AwayContext;
+ac.name = "Ref to shared context";
+ac.context = c1;    
+m.elements.add(ac);

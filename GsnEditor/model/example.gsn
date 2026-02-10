@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ASCII"?>
+<gsn:Module xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gsn="http://www.example.org/gsn" xsi:schemaLocation="http://www.example.org/gsn gsn.ecore" isPublic="true">
+  <relationships xsi:type="gsn:SupportedBy" source="//@elements.0" target="//@elements.1"/>
+  <relationships xsi:type="gsn:SupportedBy" source="//@elements.1" target="//@elements.2"/>
+  <relationships xsi:type="gsn:InContextOf" source="//@elements.0" target="//@elements.3"/>
+  <elements xsi:type="gsn:Goal" name="System is acceptably safe" instantiated="true" isPublic="true"/>
+  <elements xsi:type="gsn:Strategy" name="Argument by decomposition"/>
+  <elements xsi:type="gsn:Solution" name="Test reports + analysis"/>
+  <elements xsi:type="gsn:Context" name="Operational assumptions"/>
+  <elements xsi:type="gsn:AwayGoal" name="Ref to external safety goal" goal="//@elements.0"/>
+  <elements xsi:type="gsn:AwayContext" name="Ref to shared context" context="//@elements.3"/>
+</gsn:Module>
