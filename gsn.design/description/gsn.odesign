@@ -59,7 +59,14 @@
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_purple']"/>
           </style>
         </nodeMappings>
-        <edgeMappings name="SupportedBy" label="SupportedBy" semanticElements="aql:self" sourceMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Assumption'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Context'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Goal'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Justification'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Solution'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Strategy']" targetMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Assumption'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Context'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Goal'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Justification'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Solution'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Strategy']" targetFinderExpression="aql:self.target" targetExpression="aql:self.target" pathExpression="aql:self.relationships" pathNodeMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Assumption'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Context'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Goal'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Justification'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Solution'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Strategy']">
+        <nodeMappings name="AwayContext" label="AwayContext" semanticCandidatesExpression="aql:self.elements->filter(gsn::AwayContext)" domainClass="gsn::AwayContext">
+          <style xsi:type="style:DotDescription" labelSize="12" showIcon="false" labelExpression="aql:self.name + (if self.description = null or self.description = '' then '' else '\n' + self.description endif)" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_gray']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="SupportedBy" label="SupportedBy" semanticCandidatesExpression="aql:self.relationships->filter(gsn::SupportedBy)" sourceMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Assumption'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Context'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Goal'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Justification'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Solution'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Strategy']" targetMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Assumption'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Context'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Goal'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Justification'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Solution'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Strategy']" targetFinderExpression="aql:self.target" sourceFinderExpression="aql:self.source" domainClass="gsn::SupportedBy" useDomainElement="true">
           <style sizeComputationExpression="2">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             <centerLabelStyleDescription labelSize="12">
@@ -67,7 +74,15 @@
             </centerLabelStyleDescription>
           </style>
         </edgeMappings>
-        <toolSections>
+        <edgeMappings name="InContextOf" label="InContextOf" semanticCandidatesExpression="aql:self.relationships->filter(gsn::InContextOf)" sourceMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Assumption'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Context'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Goal'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Justification'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Solution'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Strategy']" targetMapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Context'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Assumption'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Goal'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Justification'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Solution'] //@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Strategy']" targetFinderExpression="aql:self.target" sourceFinderExpression="aql:self.source" domainClass="gsn::InContextOf" useDomainElement="true">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
+            <centerLabelStyleDescription labelSize="12">
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <toolSections name="Elements">
           <ownedTools xsi:type="tool:NodeCreationDescription" name="createGoal" label="Goal" nodeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='Goal']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
@@ -137,13 +152,44 @@
           <ownedTools xsi:type="tool:NodeCreationDescription" name="createAwayGoal" label="AwayGoal" nodeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='AwayGoal']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
-            <initialOperation/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="gsn::AwayGoal" referenceName="elements">
+                  <subModelOperations xsi:type="tool:CreateView" mapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='AwayGoal']" containerViewExpression="var:containerView"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
           </ownedTools>
           <ownedTools xsi:type="tool:NodeCreationDescription" name="createAwaySolution" label="AwaySolution" nodeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='AwaySolution']">
             <variable name="container"/>
             <viewVariable name="containerView"/>
-            <initialOperation/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="gsn::AwaySolution" referenceName="elements">
+                  <subModelOperations xsi:type="tool:CreateView" mapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='AwaySolution']" containerViewExpression="var:containerView"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
           </ownedTools>
+          <ownedTools xsi:type="tool:NodeCreationDescription" name="createAwayContext" label="AwayContext" nodeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='AwayContext']">
+            <variable name="container"/>
+            <viewVariable name="containerView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext" browseExpression="var:container">
+                <subModelOperations xsi:type="tool_1:CreateInstance" typeName="gsn::AwayContext" referenceName="elements">
+                  <subModelOperations xsi:type="tool:CreateView" mapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@nodeMappings[name='AwayContext']" containerViewExpression="var:containerView"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+          <ownedTools xsi:type="tool_1:PopupMenu" name="example.popup" label="My_Popup">
+            <menuItemDescription xsi:type="tool_1:OperationAction" name="runValidation" label="Run Validation">
+              <view name="views"/>
+              <initialOperation/>
+            </menuItemDescription>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Relationhips">
           <ownedTools xsi:type="tool:EdgeCreationDescription" name="createSupportedBy" label="SuppportedBy" edgeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@edgeMappings[name='SupportedBy']">
             <sourceVariable name="source"/>
             <targetVariable name="target"/>
@@ -159,9 +205,34 @@
               </firstModelOperations>
             </initialOperation>
           </ownedTools>
+          <ownedTools xsi:type="tool:EdgeCreationDescription" name="createInContextOf" label="InContextOf" edgeMappings="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@edgeMappings[name='InContextOf']">
+            <sourceVariable name="source"/>
+            <targetVariable name="target"/>
+            <sourceViewVariable name="sourceView"/>
+            <targetViewVariable name="targetView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ChangeContext">
+                <subModelOperations xsi:type="tool_1:CreateInstance">
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="source" valueExpression="var:source"/>
+                  <subModelOperations xsi:type="tool_1:SetValue" featureName="target" valueExpression="var:target"/>
+                  <subModelOperations xsi:type="tool:CreateEdgeView" mapping="//@ownedViewpoints[name='MyViewpoint']/@ownedRepresentations[name='gsnDiagram']/@defaultLayer/@edgeMappings[name='InContextOf']" containerViewExpression="aql:sourceView.eContainer()" sourceExpression="var:sourceView" targetExpression="var:targetView"/>
+                </subModelOperations>
+              </firstModelOperations>
+            </initialOperation>
+          </ownedTools>
+        </toolSections>
+        <toolSections name="Validation">
+          <ownedTools xsi:type="tool_1:ToolDescription">
+            <element name="element"/>
+            <elementView name="elementView"/>
+            <initialOperation>
+              <firstModelOperations xsi:type="tool_1:ExternalJavaActionCall" name="runValidation" label="runValidation"/>
+            </initialOperation>
+          </ownedTools>
         </toolSections>
       </defaultLayer>
     </ownedRepresentations>
     <ownedJavaExtensions qualifiedClassName="gsn.design.Services"/>
+    <ownedJavaExtensions qualifiedClassName="gsn.design.validation.RunEvlValidationAction"/>
   </ownedViewpoints>
 </description:Group>

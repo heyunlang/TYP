@@ -13,15 +13,15 @@ context GSN!SupportedBy {
 	// Valid SupportedBy source
 	constraint SB_ValidSource {
 		check :
-			self.source.isKindOf(Goal) or self.source.isKindOf(Strategy)
+			self.source.isKindOf(GSN!Goal) or self.source.isKindOf(GSN!Strategy)
 		message :
-			"Invalide SupportedBy source."
+			"Invalid SupportedBy source."
 	}
 		
 	// Valid SupportedBy target
 	constraint SB_ValidTarget {
 		check :
-			self.target.isKindOf(Goal) or self.target.isKindOf(Strategy) or self.target.isKindOf(Solution)
+			self.target.isKindOf(GSN!Goal) or self.target.isKindOf(GSN!Strategy) or self.target.isKindOf(GSN!Solution)
 		message :
 			"Invalid SupportedBy target."
 	}
@@ -32,10 +32,10 @@ context GSN!SupportedBy {
 			self.satisfies("SB_ValidSource") and self.satisfies("SB_ValidTarget")
 	    check :
 	        // Goal could be supported by Strategy or Solution
-	        (self.source.isKindOf(Goal) and (self.target.isKindOf(Strategy) or self.target.isKindOf(Solution)))
+	        (self.source.isKindOf(GSN!Goal) and (self.target.isKindOf(GSN!Strategy) or self.target.isKindOf(GSN!Solution)))
 	        or
 	        // Strategy only could be supported by sub-goals
-	        (self.source.isKindOf(Strategy) and self.target.isKindOf(Goal))
+	        (self.source.isKindOf(GSN!Strategy) and self.target.isKindOf(GSN!Goal))
 	    message :
 	        "Invalid SupportedBy connection."
 	}
@@ -47,30 +47,40 @@ context GSN!InContextOf {
 	// Valid InContextOf source
 	constraint ICO_ValidSource {
 		check :
-			self.source.isKindOf(Goal) or self.source.isKindOf(Strategy)
+			self.source.isKindOf(GSN!Goal) or self.source.isKindOf(GSN!Strategy)
 		message :
-			"Invalide InContextOf source."
+			"Invalid InContextOf source."
 	}
 		
 	// Valid InContextOf target
 	constraint ICO_ValidTarget {
 		check :
-			self.target.isKindOf(Context) or self.target.isKindOf(Assumption) or self.target.isKindOf(Justification)
+			self.target.isKindOf(GSN!Context) or self.target.isKindOf(GSN!Assumption) or self.target.isKindOf(GSN!Justification)
 		message :
 			"Invalid InContextOf target."
 	}
 }
-	
-// Argument completeness constraints
+
 context GSN!Goal {
+	constraint ValidDeveloped {
+		guard :
+			self.developed = true
+    	check :
+      		GSN!SupportedBy.allInstances().exists(sb | sb.source = self and sb.target.isKindOf(GSN!Strategy))
+    	message :
+      		"A developed goal must be supported by a Strategy."
+	}
+
+	// Argument completeness constraints
 	// Every argument path must end in solution
 	constraint ArgumentComplete {
+		// Top-level Goal
 		guard :
-			self.developed = false
+			GSN!SupportedBy.allInstances().select(sb | sb.target = self).isEmpty()
 		check :
 			self.isArgumentComplete(Sequence{})
 		message :
-			" The argument path does not end in a Solution."	
+			"The argument path does not end in a Solution."	
 	}
 }
 	
@@ -91,7 +101,6 @@ operation GSN!NamedElement isArgumentComplete(visited : Sequence) : Boolean {
         return sbLinks.forAll(sb |
             sb.target.isKindOf(GSN!Solution)
             or (sb.target.isKindOf(GSN!Strategy) and sb.target.isArgumentComplete(newVisited))
-            or (sb.target.isKindOf(GSN!Goal) and sb.target.isArgumentComplete(newVisited))
         );
     }
 	
