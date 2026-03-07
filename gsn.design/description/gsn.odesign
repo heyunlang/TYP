@@ -2,6 +2,7 @@
 <description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/diagram/description/tool/1.1.0" xmlns:tool_1="http://www.eclipse.org/sirius/description/tool/1.1.0" name="gsn" version="12.0.0.2017041100">
   <ownedViewpoints name="MyViewpoint">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="gsnDiagram" label="GSN Diagram" domainClass="gsn::Module" enablePopupBars="true">
+      <metamodel href="../../GsnEditor/model/gsn.ecore#/"/>
       <defaultLayer name="Default">
         <nodeMappings name="Goal" label="Goal" semanticCandidatesExpression="aql:self.elements->filter(gsn::Goal)" domainClass="gsn::Goal">
           <style xsi:type="style:SquareDescription" labelSize="12" showIcon="false" labelExpression="aql:self.name + (if self.description = null or self.description = '' then '' else '\n' + self.description endif)" labelPosition="node" resizeKind="NSEW">
@@ -236,3 +237,4 @@
     <ownedJavaExtensions qualifiedClassName="gsn.design.validation.RunEvlValidationAction"/>
   </ownedViewpoints>
 </description:Group>
+
